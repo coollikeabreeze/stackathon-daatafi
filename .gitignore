@@ -6,3 +6,4 @@ npm-debug.log
 secrets.js
 yarn-error.log
 package-lock.json
+.env

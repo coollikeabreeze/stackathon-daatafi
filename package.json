@@ -1,5 +1,5 @@
 {
-  "name": "stackathon",
+  "name": "daatafi",
   "version": "2.0.0",
   "description": "Some boilerplate code to get you started - get shakin'!",
   "main": "index.js",
@@ -23,11 +23,17 @@
     "axios": "^0.21.1",
     "bcrypt": "^5.0.0",
     "compression": "^1.7.3",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
     "express": "^4.16.4",
     "history": "^4.9.0",
+    "jquery": "^3.6.0",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.9.1",
     "pg": "^8.5.1",
+    "querystring": "^0.2.1",
+    "react-bootstrap": "^2.1.1",
+    "request": "^2.88.2",
     "sequelize": "^6.3.5"
   },
   "devDependencies": {
@@ -38,6 +44,7 @@
     "axios-mock-adapter": "^1.16.0",
     "babel-loader": "^8.2.2",
     "chai": "^4.2.0",
+    "dotenv-webpack": "^7.0.3",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.12.1",
     "esm": "^3.2.25",
