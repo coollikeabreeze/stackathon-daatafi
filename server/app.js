@@ -6,9 +6,11 @@ var request = require('request'); // "Request" library
 var cors = require('cors');
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser')
 
 require("dotenv").config()
 const SpotifyWebApi = require('spotify-web-api-node')
+const lyricsFinder = require("lyrics-finder")
 
 module.exports = app
 
@@ -24,6 +26,7 @@ app.use(morgan('dev'))
 
 // body parsing middleware
 app.use(express.json())
+app.use(bodyParser.urlencoded({ extended:true }))
 
 // auth and api routes
 app.use('/auth', require('./auth'))
@@ -70,7 +73,6 @@ app.post("/refresh", (req, res) => {
   .then(
     (data) => {
       console.log('The access token has been refreshed');
-      console.log(data);
       res.json({
         accessToken: data.body.accessToken,
         expiresIn: data.body.expiresIn,
@@ -78,6 +80,11 @@ app.post("/refresh", (req, res) => {
     }).catch(() => {
       res.sendStatus(400)
     })
+})
+
+app.get("/lyrics", async (req, res) => {
+  const lyrics = await lyricsFinder(req.query.artist, req.query.track) || "No lyrics found"
+  res.json({ lyrics })
 })
 
 // any remaining requests with an extension (.js, .css, etc.) send 404

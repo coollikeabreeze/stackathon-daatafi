@@ -6,6 +6,7 @@ import useAuth from "./useAuth";
 import DropDowns from "./DropDowns";
 import Playlist from "./Playlist";
 import SearchResults from "./SearchResults"
+import Player from "./Player"
 import SpotifyWebApi from "spotify-web-api-node/src/spotify-web-api";
 
 const spotifyApi = new SpotifyWebApi({
@@ -17,7 +18,28 @@ const SpotifyData = ({code}) => {
   const accessToken = useAuth(code)
   const [search,setSearch] = useState('')
   const [searchResults, setSearchResults] = useState([])
+  const [playingTrack, setPlayingTrack] = useState()
+  const [lyrics, setLyrics] = useState('')
 
+  function chooseTrack(track) {
+    setPlayingTrack(track)
+    setSearchResults([])
+    setLyrics("")
+  }
+
+  useEffect(() => {
+    if (!playingTrack) return
+
+    axios
+      .get("http://localhost:8080/lyrics", {
+        params: {
+          track: playingTrack.track,
+          artist: playingTrack.artist
+        }
+      }).then(res => {
+        setLyrics(res.data.lyrics)
+      })
+  }, [playingTrack])
 
   useEffect(() => {
     if (!accessToken) return
@@ -53,12 +75,42 @@ const SpotifyData = ({code}) => {
 
   return (
     <div>
-     <input type="search" className="form-control relative flex-auto w-min-50 block px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+     <input type="search" className="form-control relative flex-auto w-min-50 block px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none m-6"
      placeholder="Search an artist or song"
      value={search}
      onChange={(e)=> setSearch(e.target.value)}></input>
 
-    <SearchResults searchResults={searchResults}/>
+     <div >
+        <Player accessToken={accessToken} trackUri={playingTrack?.uri}/>
+      </div>
+
+
+    <div className="my-8">
+
+      <table className="table-fixed rounded-sm border-collapse bg-gray-900 w-full">
+        {/* <thead>
+          <tr className="px-8 py-1 bg-gray-500">
+            <td className="w-40  px-8 py-2">Track</td>
+            <td className="px-8 py-2"></td>
+            <td className="px-8">Popularity</td>
+            </tr>
+          </thead> */}
+          <tbody className=" items-center justify-between overflow-y-scroll">
+              {searchResults.map(track=> (
+              <SearchResults track={track} key={track.uri} chooseTrack={chooseTrack}/>
+              ))}
+        </tbody>
+        </table>
+
+        {searchResults.length === 0 && (
+          <div className="text-center" style={{ whiteSpace: 'pre' }}>
+          {lyrics}
+          </div>
+        )}
+
+
+    </div>
+
 
 
     </div>
