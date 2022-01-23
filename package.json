@@ -24,6 +24,7 @@
     "@heroicons/react": "^1.0.5",
     "axios": "^0.21.1",
     "bcrypt": "^5.0.0",
+    "body-parser": "^1.19.1",
     "cheerio": "^1.0.0-rc.10",
     "compression": "^1.7.3",
     "cookie-parser": "^1.4.6",
@@ -41,6 +42,7 @@
     "react-bootstrap": "^2.1.1",
     "request": "^2.88.2",
     "sequelize": "^6.3.5",
+    "spotify-web-api-node": "^5.0.2",
     "style-loader": "^3.3.1"
   },
   "devDependencies": {

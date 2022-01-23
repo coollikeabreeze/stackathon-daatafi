@@ -1,55 +1,27 @@
-/**
- * This is an example of a basic node.js script that performs
- * the Authorization Code oAuth2 flow to authenticate against
- * the Spotify Accounts.
- *
- * For more information, read
- * https://developer.spotify.com/web-api/authorization-guide/#authorization_code_flow
- */
-
-var express = require('express'); // Express web server framework
-var request = require('request'); // "Request" library
-var cors = require('cors');
-var querystring = require('querystring');
-var cookieParser = require('cookie-parser');
-const res = require('express/lib/response');
+//const { data } = require('cheerio/lib/api/attributes')
+const SpotifyWebApi = require('spotify-web-api-node')
+const bodyParser = require('body-parser')
 const router = require('express').Router()
+
 module.exports = router
+router.use(bodyParser.json())
 
-if (process.env.NODE_ENV !== 'production') require("../../secrets")
-//console.log('log my environment variables', process.env)
+router.post('/login', (req, res) => {
+  const code = req.body.code
+  const spotifyApi = new SpotifyWebApi({
+    redirectUri: process.env.REDIRECT_URI,
+    clientId: process.env.SPOTIFY_CLIENT_ID,
+    clientSecret: process.env.SPOTIFY_CLIENT_SECRET
+  })
 
-const client_id = process.env.SPOTIFY_CLIENT_ID
-const client_secret = process.env.SPOTIFY_CLIENT_SECRET
-const redirect_uri = process.env.SPOTIFY_REDIRECT_URI
-
-var authOptions = {
-  url: 'https://accounts.spotify.com/api/token',
-  headers: {
-    'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64'))
-  },
-  form: {
-    grant_type: 'client_credentials'
-  },
-  json: true
-};
-
-request.post(authOptions, function(error, response, body) {
-  if (!error && response.statusCode === 200) {
-
-    // use the access token to access the Spotify Web API
-    var token = body.access_token;
-    var options = {
-    url: 'https://api.spotify.com/v1/users/jmperezperez',
-      headers: {
-        'Authorization': 'Bearer ' + token
-      },
-      json: true
-    };
-    request.get(options, function(error, response, body) {
-      console.log(body);
-    });
-
-    // response.send({token})
-  }
-});
+  spotifyApi.authorizationCodeGrant(code).then(data => {
+    res.json({
+      accessToken: data.body.access_token,
+      refreshToken: data.body.refresh_token,
+      expiresIn: data.body.expires_in,
+    })
+  }).catch((err)=> {
+    console.log(err)
+  res.sendStatus(400)
+})
+})
