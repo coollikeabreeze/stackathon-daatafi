@@ -1,54 +1,37 @@
-import React from 'react'
-import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
-import {logout} from '../store'
+import React from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { logout } from "../store";
+import history from "../history";
 
-const Navbar = ({handleClick, isLoggedIn}) => (
-  <div>
-    <h1>DaataFi</h1>
+const Navbar = ({ handleClick, isLoggedIn }) => (
+  <div className="bg-gradient-to-r from-indigo-600 via-purple-500 to-pink-500 ... text-white flex">
+    <h1 className="flex-auto text-6xl py-5">DaataFi</h1><br></br>
     <nav>
-      {isLoggedIn ? (
-        <div>
-          {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
-          <a href="#" onClick={handleClick}>
-            Logout
-          </a>
-        </div>
-      )
-
-      :
-
-
-
-      (
-        <div>
-          {/* The navbar will show these links before you log in */}
-          {/* <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link> */}
-          Welcome!
-        </div>
-      )}
+      <div className="flex">
+        <Link to="/home">Home</Link>
+      </div>
     </nav>
+
     <hr />
   </div>
-)
+);
 
 /**
  * CONTAINER
  */
-const mapState = state => {
+const mapState = (state) => {
   return {
-    isLoggedIn: !!state.auth.id
-  }
-}
+    isLoggedIn: !!state.auth.id,
+  };
+};
 
-const mapDispatch = dispatch => {
+const mapDispatch = (dispatch) => {
   return {
     handleClick() {
-      dispatch(logout())
-    }
-  }
-}
+      dispatch(logout());
+    },
+  };
+};
 
-export default connect(mapState, mapDispatch)(Navbar)
+export default connect(mapState, mapDispatch)(Navbar);

@@ -1,6 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+
 body {
-  font-family: sans-serif;
+  background-color: black;
+  color: white
 }
+
+/*
 
 a {
   text-decoration: none;
@@ -18,4 +28,4 @@ nav a {
 form div {
   margin: 1em;
   display: inline-block;
-}
+} */

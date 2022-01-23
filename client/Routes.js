@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {withRouter, Route, Switch, Redirect} from 'react-router-dom'
 import { Login, Signup } from './components/AuthForm';
 import Home from './components/Home';
+import SpotifyData from './components/SpotifyData';
 import {me} from './store'
 
 /**
@@ -23,11 +24,14 @@ class Routes extends Component {
             <Route path="/home" component={Home} />
             <Redirect to="/home" />
           </Switch>
-        ) : (
+        ) :
+
+        (
           <Switch>
-            <Route path='/' exact component={ Home } />
-            <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
+            <Route exact path="/" component={SpotifyData} />
+            <Route path="/home" component={SpotifyData} />
+            {/* <Route path="/login" component={Login} />
+            <Route path="/signup" component={Signup} /> */}
           </Switch>
         )}
       </div>
