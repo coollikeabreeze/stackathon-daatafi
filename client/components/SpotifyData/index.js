@@ -86,8 +86,8 @@ const SpotifyData = ({ code }) => {
       <div>
         <input
           type="search"
-          className="form-control fixed flex-auto w-min-50 block px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none mx-6 -my-14"
-          placeholder="Search an artist or song"
+          className="form-control fixed flex-auto w-96 block px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none mx-6 -my-14"
+          placeholder="Search artist/song"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         ></input>
