@@ -23,6 +23,7 @@ const SpotifyData = ({code}) => {
   const [lyrics, setLyrics] = useState('')
 
   function chooseTrack(track) {
+    console.log(track)
     setPlayingTrack(track)
     setSearchResults([])
     setLyrics("")
@@ -54,6 +55,7 @@ const SpotifyData = ({code}) => {
     spotifyApi.searchTracks(search).then(res => {
       if (cancel) return
       setSearchResults(res.body.tracks.items.map(track=> {
+        console.log(track)
         const smallestAlbumImage = track.album.images.reduce(
           (smallest, image) => {
             if (image.height < smallest.height) return image
@@ -62,6 +64,7 @@ const SpotifyData = ({code}) => {
 
         return{
           artist: track.artists[0].name,
+          artistId: track.artists[0].id,
           title: track.name,
           uri: track.uri,
           albumUrl: smallestAlbumImage.url,
@@ -102,19 +105,11 @@ const SpotifyData = ({code}) => {
         </tbody>
         </table>
 
-        {searchResults.length === 0 && (
-          // <div className="text-center" style={{ whiteSpace: 'pre' }}>
-          // {lyrics}
-          // </div>
-
-          <EachSong lyrics={lyrics}/>
-        )}
-
-
+        {(!playingTrack) ? (<div/>) :
+         (<div className="text-center" style={{ whiteSpace: "pre" }}>
+            <EachSong lyrics={lyrics} playingTrack={playingTrack}/>
+          </div>)}
     </div>
-
-
-
     </div>
   )
 };
