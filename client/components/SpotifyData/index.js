@@ -7,6 +7,7 @@ import DropDowns from "./DropDowns";
 import Playlist from "./Playlist";
 import SearchResults from "./SearchResults"
 import Player from "./Player"
+import EachSong from "./EachSong"
 import SpotifyWebApi from "spotify-web-api-node/src/spotify-web-api";
 
 const spotifyApi = new SpotifyWebApi({
@@ -29,7 +30,6 @@ const SpotifyData = ({code}) => {
 
   useEffect(() => {
     if (!playingTrack) return
-
     axios
       .get("http://localhost:8080/lyrics", {
         params: {
@@ -103,9 +103,11 @@ const SpotifyData = ({code}) => {
         </table>
 
         {searchResults.length === 0 && (
-          <div className="text-center" style={{ whiteSpace: 'pre' }}>
-          {lyrics}
-          </div>
+          // <div className="text-center" style={{ whiteSpace: 'pre' }}>
+          // {lyrics}
+          // </div>
+
+          <EachSong lyrics={lyrics}/>
         )}
 
 
