@@ -5,7 +5,7 @@ import { logout } from "../store";
 import history from "../history";
 
 const Navbar = ({ handleClick, isLoggedIn }) => (
-  <div className="container min-w-full relative bg-gradient-to-r from-indigo-600 via-purple-500 to-pink-500 ... text-white flex">
+  <div className="container min-w-full bg-gradient-to-r from-indigo-600 via-purple-500 to-pink-500 ... text-white flex">
     <div className="flex-col w-full">
       <h1 className="flex-auto text-6xl pt-3 mx-3 mt-3">DaataFi</h1>
       <p className="mx-5 pb-3">A little data about the Global Top 10 Songs on Spotify this week.</p>

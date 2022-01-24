@@ -48,7 +48,7 @@ const EachSong = (props) => {
   return (
     <div className="text-center" style={{ whiteSpace: 'pre' }}>
     Unique Words: {uniqueWordsCount(lyrics)}
-    This artist {playingTrack.artist}
+    This artist {playingTrack.artistId}
     </div>
   )
 }
