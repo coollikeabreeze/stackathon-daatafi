@@ -22,7 +22,6 @@ const SpotifyData = ({ code }) => {
   const [lyrics, setLyrics] = useState("");
 
   function chooseTrack(track) {
-    console.log(track);
     setPlayingTrack(track);
     setSearchResults([]);
     setLyrics("");
@@ -56,7 +55,6 @@ const SpotifyData = ({ code }) => {
       if (cancel) return;
       setSearchResults(
         res.body.tracks.items.map((track) => {
-          console.log(track);
           const smallestAlbumImage = track.album.images.reduce(
             (smallest, image) => {
               if (image.height < smallest.height) return image;
@@ -79,6 +77,9 @@ const SpotifyData = ({ code }) => {
 
     return () => (cancel = true);
   }, [search, accessToken]);
+
+
+
 
   return (
     <div>
@@ -120,7 +121,7 @@ const SpotifyData = ({ code }) => {
           <div />
         ) : (
           <div className="text-center" style={{ whiteSpace: "pre" }}>
-            <EachSong lyrics={lyrics} playingTrack={playingTrack} />
+            <EachSong accessToken={accessToken} lyrics={lyrics} playingTrack={playingTrack} />
           </div>
         )}
       </div>

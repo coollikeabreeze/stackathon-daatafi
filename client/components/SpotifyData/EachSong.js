@@ -1,10 +1,70 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import SpotifyWebApi from "spotify-web-api-node/src/spotify-web-api";
+
+const spotifyApi = new SpotifyWebApi({
+  clientId: process.env.SPOTIFY_CLIENT_ID,
+});
 
 const EachSong = (props) => {
-
+  const accessToken = props.accessToken
   const lyrics = props.lyrics
   const playingTrack = props.playingTrack
+
+  const [artist, setArtist] = useState({})
+  const [relatedArtists, setRelatedArtists] = useState([])
+
+  console.log(artist)
+  console.log(relatedArtists)
+
+  useEffect(() => {
+    if (!accessToken) return;
+    spotifyApi.setAccessToken(accessToken);
+  }, [accessToken]);
+
+  useEffect(() => {
+    spotifyApi.getArtist(playingTrack.artistId)
+    .then(data =>  {
+    // console.log('Artist information', data.body);
+    setArtist({
+      name: data.body.name,
+      popularity: data.body.popularity,
+      genres: data.body.genres
+    })
+  }, err => {
+    console.error(err);
+  });
+
+  }, [playingTrack]);
+
+  useEffect(() => {
+    spotifyApi.getArtistRelatedArtists(playingTrack.artistId)
+    .then(data =>  {
+    setRelatedArtists(
+        data.body.artists.map((artist) => {
+          const smallestArtistImage = artist.images.reduce(
+            (smallest, image) => {
+              if (image.height < smallest.height) return image;
+              return smallest;
+            },
+            artist.images[0]
+          );
+
+          return {
+            artist: artist.name,
+            artistId: artist.id,
+            title: artist.name,
+            uri: artist.uri,
+            artistImageUrl: smallestArtistImage.url,
+            popularity: artist.popularity,
+            genres: artist.genres
+          };
+        })
+    )
+  }, err => {
+    console.error(err);
+  });
+  }, [playingTrack]);
 
   const uniqueWordsArray = (str) => {
     return str.toLowerCase().replace(/\b(the|to|in|on|a|an)\b/gi, '').replace(/[^A-Za-z0-9\s]/g,"").replace(/\s{2,}/g, " ").split(' ');
@@ -47,8 +107,14 @@ const EachSong = (props) => {
 
   return (
     <div className="text-center" style={{ whiteSpace: 'pre' }}>
-    Unique Words: {uniqueWordsCount(lyrics)}
-    This artist {playingTrack.artistId}
+    {(lyrics === 'No lyrics found') ? (<div>No lyrics found</div>):
+    (<div> Unique Words: {uniqueWordsCount(lyrics)} <br></br></div>)
+    }
+
+
+
+    This song: {playingTrack.title}<br></br>
+    This artist {playingTrack.artist} & ID {playingTrack.artistId}
     </div>
   )
 }
