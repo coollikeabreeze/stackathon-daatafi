@@ -16,7 +16,7 @@ module.exports = app
 
 //if I am not in my production environment, I want to access the secrets.js file inside of my local machine (each dev should have one!)
 //other environments aside from production include development, test, etc.
-if (process.env.NODE_ENV !== 'production') require("../secrets")
+if (process.env.NODE_ENV !== 'production') require("../.env")
 //console.log('log my environment variables', process.env)
 
 // const STRIPE_API_KEY = process.env.STRIPE_API_KEY
