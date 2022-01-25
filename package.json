@@ -22,6 +22,8 @@
   "dependencies": {
     "@headlessui/react": "^1.4.3",
     "@heroicons/react": "^1.0.5",
+    "@types/d3": "^7.1.0",
+    "@types/d3-force": "^3.0.3",
     "axios": "^0.21.1",
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.1",
@@ -30,7 +32,11 @@
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "css-loader": "^6.5.1",
+    "d3": "^7.3.0",
+    "d3-force": "^3.0.0",
+    "d3-force-3d": "^3.0.2",
     "express": "^4.16.4",
+    "generate-react-cli": "^7.0.5",
     "history": "^4.9.0",
     "jquery": "^3.6.0",
     "jsonwebtoken": "^8.5.1",
@@ -40,11 +46,15 @@
     "postcss-loader": "^6.2.1",
     "querystring": "^0.2.1",
     "react-bootstrap": "^2.1.1",
+    "react-force-graph-2d": "^1.23.8",
     "react-spotify-web-playback": "^0.9.1",
+    "react-wordcloud": "^1.2.7",
     "request": "^2.88.2",
     "sequelize": "^6.3.5",
     "spotify-web-api-node": "^5.0.2",
-    "style-loader": "^3.3.1"
+    "style-loader": "^3.3.1",
+    "vis-data": "^7.1.2",
+    "vis-network": "^9.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",

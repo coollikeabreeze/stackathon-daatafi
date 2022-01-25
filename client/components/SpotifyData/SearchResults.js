@@ -16,27 +16,13 @@ const SearchResults = (props) => {
     style={{ cursor:"pointer"}}
     onClick={handlePlay}>
       <td className="px-8 py-2 border-t border-gray-600 p-8">
-        <img src={track.albumUrl}/></td>
+        <img src={track.smallestAlbumUrl}/></td>
       <td className="px-8 py-2 border-t border-gray-600 p-8">
         <div>{track.title}</div>
         <div className="text-gray-400">{track.artist}</div>
       </td>
       <td className="px-8 py-2 border-t border-gray-600 p-8">{track.popularity}</td>
       </tr>
-
-
-    // <div
-    // style={{ cursor:"pointer"}}
-    // onClick={handlePlay}>
-    //   <div className="px-8 py-2 border-t border-gray-600 p-8">
-    //     <img src={track.albumUrl}/></div>
-    //   <div className="px-8 py-2 border-t border-gray-600 p-8">
-    //     <div>{track.title}</div>
-    //     <div className="text-gray-400">{track.artist}</div>
-    //   </div>
-    //   <div className="px-8 py-2 border-t border-gray-600 p-8">{track.popularity}</div>
-    //   </div>
-
   );
 };
 

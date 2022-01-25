@@ -23,6 +23,7 @@ const SpotifyData = ({ code }) => {
 
   function chooseTrack(track) {
     setPlayingTrack(track);
+    setSearch('')
     setSearchResults([]);
     setLyrics("");
   }
@@ -55,6 +56,7 @@ const SpotifyData = ({ code }) => {
       if (cancel) return;
       setSearchResults(
         res.body.tracks.items.map((track) => {
+
           const smallestAlbumImage = track.album.images.reduce(
             (smallest, image) => {
               if (image.height < smallest.height) return image;
@@ -63,12 +65,23 @@ const SpotifyData = ({ code }) => {
             track.album.images[0]
           );
 
+            const largestAlbumImage = track.album.images.reduce(
+              (largest, image) => {
+                if (image.height > largest.height) return image;
+                return largest;
+              },
+              track.album.images[0]
+            );
+
+
+
           return {
             artist: track.artists[0].name,
             artistId: track.artists[0].id,
             title: track.name,
             uri: track.uri,
-            albumUrl: smallestAlbumImage.url,
+            smallestAlbumUrl: smallestAlbumImage.url,
+            largestAlbumUrl: largestAlbumImage.url,
             popularity: track.popularity,
           };
         })
@@ -77,9 +90,6 @@ const SpotifyData = ({ code }) => {
 
     return () => (cancel = true);
   }, [search, accessToken]);
-
-
-
 
   return (
     <div>
@@ -99,13 +109,6 @@ const SpotifyData = ({ code }) => {
 
       <div className="mt-48">
         <table className="table-fixed rounded-sm border-collapse bg-gray-900 w-full">
-          {/* <thead>
-          <tr className="px-8 py-1 bg-gray-500">
-            <td className="w-40  px-8 py-2">Track</td>
-            <td className="px-8 py-2"></td>
-            <td className="px-8">Popularity</td>
-            </tr>
-          </thead> */}
           <tbody className=" items-center justify-between overflow-y-scroll">
             {searchResults.map((track) => (
               <SearchResults
