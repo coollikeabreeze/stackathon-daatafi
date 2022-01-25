@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import RelatedArtists from "./RelatedArtists";
 import WordCloud from "./WordCloud";
 import SpotifyWebApi from "spotify-web-api-node/src/spotify-web-api";
+import RelatedBarChart from "./RelatedBarChart"
 
 const spotifyApi = new SpotifyWebApi({
   clientId: process.env.SPOTIFY_CLIENT_ID,
@@ -190,7 +191,13 @@ const EachSong = (props) => {
         <div className="text-3xl text-transparent bg-clip-text bg-gradient-to-r from-pink-400  to-indigo-500">
         Related Artists:</div>
         <div id="my_dataviz">
+
+
           <RelatedArtists artist={artist} relatedArtists={relatedArtists} playingTrack={playingTrack}/>
+
+          {/* <RelatedBarChart relatedArtists={relatedArtists}/> */}
+
+
         </div>
       </div>
       </div>

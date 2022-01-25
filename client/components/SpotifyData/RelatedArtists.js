@@ -37,10 +37,11 @@ const RelatedArtists = (props) => {
     //     <div key={artist.artistId}>{artist.name}</div>
     //   ))}
 
-    //   {/* <ForceGraph relatedArtistData={relatedArtistData}/> */}
+      //  <ForceGraph relatedArtistData={relatedArtistData}/>
     // </div>
 
     // <div>
+
     <table className = "bg-gray-900 mb-16">
       <tbody>
       {relatedArtists.map((artist) => (
@@ -59,6 +60,7 @@ const RelatedArtists = (props) => {
       ))}
       </tbody>
     </table>
+
   );
 };
 

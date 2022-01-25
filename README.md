@@ -2,6 +2,10 @@
 
 ## Technologies
 * Spotify API
+* spotify-web-abi-node
+* Lyrics Finder API
+* React-wordcloud
+* TailwindCSS
 
 # Getting Started
 
