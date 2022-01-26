@@ -44,7 +44,7 @@ app.use(express.static(path.join(__dirname, '..', 'public')))
 app.post('/login', (req, res) => {
   const code = req.body.code
   const spotifyApi = new SpotifyWebApi({
-    redirectUri: process.env.REDIRECT_URI,
+    redirectUri: redirectUri,
     clientId: process.env.SPOTIFY_CLIENT_ID,
     clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
   })
