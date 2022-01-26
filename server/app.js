@@ -16,8 +16,9 @@ module.exports = app
 
 //if I am not in my production environment, I want to access the secrets.js file inside of my local machine (each dev should have one!)
 //other environments aside from production include development, test, etc.
-if (process.env.NODE_ENV !== 'production') require("../.env")
-//console.log('log my environment variables', process.env)
+const redirectUri = (process.env.NODE_ENV !== 'production')
+  ? 'http://localhost:8080'
+  : 'https://daatafi.herokuapp.com/';
 
 // const STRIPE_API_KEY = process.env.STRIPE_API_KEY
 
@@ -63,7 +64,7 @@ app.post('/login', (req, res) => {
 app.post("/refresh", (req, res) => {
   const refreshToken = req.body.refreshToken
   const spotifyApi = new SpotifyWebApi({
-    redirectUri: process.env.REDIRECT_URI,
+    redirectUri: redirectUri,
     clientId: process.env.SPOTIFY_CLIENT_ID,
     clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
     refreshToken
