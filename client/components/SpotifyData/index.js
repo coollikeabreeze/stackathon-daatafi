@@ -11,7 +11,7 @@ import EachSong from "./EachSong";
 import SpotifyWebApi from "spotify-web-api-node/src/spotify-web-api";
 
 const spotifyApi = new SpotifyWebApi({
-  clientId: process.env.SPOTIFY_CLIENT_ID,
+  clientId: "416fece6750a4a9bb9185f0be748671c",
 });
 
 const SpotifyData = ({ code }) => {
